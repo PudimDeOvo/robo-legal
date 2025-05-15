@@ -120,4 +120,47 @@ public class Robot{
         }
     }
 
+    public void move(int movement) throws InvalidMovementException{
+        switch(movement){
+            case 1 -> {
+                if(y+1 <= GRID_LIMIT){
+                    System.out.println("Y: " + y);
+                    y++;
+                } else {
+                    throw new InvalidMovementException("coordinate Y is out of bounds!");
+                }
+            }
+
+            case 2 -> {
+                if (y-1 >= 0){
+                    System.out.println("Y: " + y);
+                    y--;
+                } else {
+                    throw new InvalidMovementException("coordinate Y is out of bounds!");
+                }
+            }
+
+            case 3 -> {
+                if (x+1 <= GRID_LIMIT){
+                    System.out.println("X: " + x);
+                    x++;
+                } else {
+                    System.out.println("X: " + x);
+                    throw new InvalidMovementException("coordinate X is out of bounds!");
+                }
+            }
+
+            case 4 -> {
+                if (x-1 >= 0){
+                    System.out.println("X: " + x);
+                    x--;
+                } else {
+                    System.out.println("X: " + x);
+                    throw new InvalidMovementException("coordinate X is out of bounds!");
+                }
+            }
+            default -> throw new InvalidMovementException("nao pode veyr");
+        }
+    }
+
 }
