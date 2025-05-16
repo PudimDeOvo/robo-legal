@@ -7,16 +7,17 @@ public class Main {
 
         System.out.println("Choose the robot's color!");
         for (int i = 0; i<colors.length; i++){
-           System.out.println("Color " + i + ": " + colors[i]); 
+           System.out.println("Color " + (i+1) + ": " + colors[i]); 
         }
 
         int chosenColor = 0;
         while(true){
             if (scanner.hasNextInt()){
-                chosenColor = scanner.nextInt() -1;
+                chosenColor = scanner.nextInt();
 
-                if (chosenColor>=1 && chosenColor < colors.length){
-                    System.out.println("color: " + chosenColor);
+                if (chosenColor>=1 && chosenColor <= colors.length){
+                    chosenColor -= 1;
+                    System.out.println("color " + (chosenColor+1) + ": " + colors[chosenColor]);
                     break;
                 } else { 
                     System.out.println("Please, choose a number between 1 and 3.");
@@ -40,32 +41,32 @@ public class Main {
                 foodX = scanner.nextInt();
                 if (foodX>=0 && foodX <= 4){
                     System.out.println("Now, choose y:");
+                    if (scanner.hasNextInt()){
+                        foodY = scanner.nextInt();
+                        if (foodY>= 0 && foodY <= 4){
+                            done = true;
+                        } else {
+                            System.out.println("Choose a number between 1 and 4 for y!");
+                        }
+                    } else {
+                        System.out.println("Invalid input. Choose a number between 1 and 4 for y!");
+                        scanner.next();
+                    }
                 } else {
-                    System.out.println("Choose a number between 1 and 4.");
+                    System.out.println("Choose a number between 1 and 4 for x!");
                 }
-            } else { 
-                System.out.println("Invalid input. Choose a number between 1 and 4.");
-                scanner.next();
-            }
-            
-            if (scanner.hasNextInt()){
-                foodY = scanner.nextInt();
-                if (foodY>=0 && foodY <= 4){
-                    done = true;
-                } else {
-                    System.out.println("Choose a number between 1 and 4.");
-                }
-            } else { 
-                System.out.println("Invalid input. Choose a number between 1 and 4.");
+            } else {
+                System.out.println("Invalid input. Choose a number between 1 and 4 for x!");
                 scanner.next();
             }
         }
-
+        
         Food food = new Food(foodX, foodY);
 
         SleepUtil.sleepMs(1200);
-        System.out.println(robot.getColor() + " Robot" + "(" + robot.getX() + ", " + robot.getY() + ")");
-        System.out.println("Food (" + robot.getX() + ", " + robot.getY() + ")");
+        System.out.println(robot.getColor() + " Robot at" + "(" + robot.getX() + ", " + robot.getY() + ")");
+        System.out.println("Food at (" + food.getX() + ", " + food.getY() + ")");
+        scanner.nextLine();
         SleepUtil.sleepMs(1200);
 
         while (!robot.foundFood(food)){
@@ -80,7 +81,7 @@ public class Main {
 
             if (robot.foundFood(food)){
                 System.err.println("The " + robot.getColor() + " Robot" + "(" + robot.getX() + ", " + robot.getY() + ")" 
-                + "found food");
+                + " found food at (" + food.getX() + ", " + food.getY() + ")!");
             }
         }
         scanner.close();
