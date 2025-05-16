@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class SmartRobot extends Robot {
-    public SmartRobot(int x, int y, String color){
+    public SmartRobot(int x, int y, String color, boolean hasFood, boolean exploded){
         super(x, y, color, false, false);
     }
 

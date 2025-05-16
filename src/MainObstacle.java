@@ -1,13 +1,13 @@
 import java.util.Random;
 import java.util.Scanner;
 
-public class MainTwoDumbRobots {
+public class MainObstacle {
     public static void main(String[] args){
         Random random = new Random();
         Scanner scanner = new Scanner(System.in);
         String[] colors = {"blue", "red", "orange"};
 
-        System.out.println("Choose the first robot's color!");
+        System.out.println("Choose the dumb robot's color!");
         for (int i = 0; i<colors.length; i++){
            System.out.println("Color " + (i+1) + ": " + colors[i]); 
         }
@@ -32,7 +32,7 @@ public class MainTwoDumbRobots {
 
         String colorOne = colors[chosenColor1];
         
-        System.out.println("Now, choose the color of the second robot");
+        System.out.println("Now, choose the color of the smart robot");
 
         int chosenColor2 = 0;
         while(true){
@@ -54,9 +54,9 @@ public class MainTwoDumbRobots {
 
         String colorTwo = colors[chosenColor2];
 
-        Robot robotOne = new Robot(0, 0, colorOne, false, false);
-        Robot robotTwo = new Robot(0, 0, colorTwo, false, false);
-
+        Robot dumbRobot = new Robot(0, 0, colorOne, false, false);
+        Robot smartRobot = new SmartRobot(0, 0, colorTwo, false, false);
+    
         int foodX = 0;
         int foodY = 0;
 
@@ -90,50 +90,38 @@ public class MainTwoDumbRobots {
         
         Food food = new Food(foodX, foodY);
 
-        System.out.println(robotOne.getColor() + " Robot at" + "(" + robotOne.getX() + ", " + robotOne.getY() + ")");
-        System.out.println(robotTwo.getColor() + " Robot at" + "(" + robotTwo.getX() + ", " + robotTwo.getY() + ")");
+        System.out.println(dumbRobot.getColor() + " Robot at" + "(" + dumbRobot.getX() + ", " + dumbRobot.getY() + ")");
+        System.out.println(smartRobot.getColor() + " Robot at" + "(" + smartRobot.getX() + ", " + smartRobot.getY() + ")");
         System.out.println("Food at (" + food.getX() + ", " + food.getY() + ")");
         scanner.nextLine();
 
-        int validMoves = 0;
-        int validMoves2 = 0;
-        int invalidMoves = 0;
-        int invalidMoves2 = 0;
-
-        while (!robotOne.foundFood(food) && !robotTwo.foundFood(food)){
+        while (!dumbRobot.foundFood(food) || !smartRobot.foundFood(food)){
             try {
                 int randomMove = random.nextInt(1, 5);
                 System.out.println("Robot one: ");
-                robotOne.move(randomMove);
-                validMoves++;
+                dumbRobot.move(randomMove);
                 SleepUtil.sleepMs(2500);
             } catch (InvalidMovementException e) {
-                invalidMoves++;
-                System.out.println(robotOne.getColor() + " Robot 1 " + e.getMessage());
+                System.out.println(dumbRobot.getColor() + " Robot 1 " + e.getMessage());
             }
 
-            if (robotOne.foundFood(food)){
-                System.out.println(robotOne.getColor() + " Robot 1 found food!");
+            if (dumbRobot.foundFood(food)){
+                System.out.println(dumbRobot.getColor() + " Robot 1 found food!");
             }
 
             try {
                 int randomMove = random.nextInt(1, 5);
                 System.out.println("Robot two: ");
-                validMoves2++;
-                robotTwo.move(randomMove);
-                SleepUtil.sleepMs(2600);
+                smartRobot.move(randomMove);
+                SleepUtil.sleepMs(3000);
             } catch (InvalidMovementException e) {
-                invalidMoves2++;
-                System.out.println(robotTwo.getColor() + " Robot 2 " + e.getMessage());
+                System.out.println(smartRobot.getColor() + " Robot 2 " + e.getMessage());
             }
 
-            if (robotTwo.foundFood(food)){
-                System.out.println(robotTwo.getColor() + " Robot 2 found food!");
+            if (smartRobot.foundFood(food)){
+                System.out.println(smartRobot.getColor() + " Robot 2 found food!");
             }
-            
         }
-        System.out.println("(Robot one) Valid moves: " + validMoves + ", invalid moves: " + invalidMoves);
-        System.out.println("(Robot two) Valid moves: " + validMoves2 + ", invalid moves: " + invalidMoves2);
         scanner.close();
 
     }
