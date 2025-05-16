@@ -63,11 +63,9 @@ public class Main {
         
         Food food = new Food(foodX, foodY);
 
-        SleepUtil.sleepMs(1200);
         System.out.println(robot.getColor() + " Robot at" + "(" + robot.getX() + ", " + robot.getY() + ")");
         System.out.println("Food at (" + food.getX() + ", " + food.getY() + ")");
         scanner.nextLine();
-        SleepUtil.sleepMs(1200);
 
         while (!robot.foundFood(food)){
             System.out.println("Choose the next move! Remember: you must write up, down, right or left.");
@@ -75,12 +73,13 @@ public class Main {
 
             try{
                 robot.move(movement);
+                SleepUtil.sleepMs(900);
             } catch (InvalidMovementException e){
                 System.out.println(e.getMessage());
             }
 
             if (robot.foundFood(food)){
-                System.err.println("The " + robot.getColor() + " Robot" + "(" + robot.getX() + ", " + robot.getY() + ")" 
+                System.out.println("The " + robot.getColor() + " Robot" + "(" + robot.getX() + ", " + robot.getY() + ")" 
                 + " found food at (" + food.getX() + ", " + food.getY() + ")!");
             }
         }
