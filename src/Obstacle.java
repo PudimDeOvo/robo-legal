@@ -1,7 +1,7 @@
 public abstract class Obstacle {
-    private int x;
-    private int y;
-    private int id;
+    protected int x;
+    protected int y;
+    protected int id;
 
     public Obstacle(int x, int y, int id){
         this.id = id;

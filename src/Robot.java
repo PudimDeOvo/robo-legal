@@ -62,15 +62,18 @@ public class Robot{
 
     public boolean foundFood(Food food){
         if (this.x == food.getX() && this.y == food.getY()){
-            System.out.println("Found food!");
             this.hasFood = true;
             return true;
         }
         return false;
     }
 
-    public boolean wasExploded() {
-        return exploded;
+    public boolean wasExploded(Bomb bomb) {
+        if (this.x == bomb.getX() && this.y == bomb.getY()){
+            this.exploded = true;
+            return  true;
+        }
+        return false;
     }
 
     public void setExploded(boolean exploded) {

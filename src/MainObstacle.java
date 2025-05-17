@@ -1,5 +1,7 @@
 import java.util.Random;
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainObstacle {
     public static void main(String[] args){
@@ -73,17 +75,17 @@ public class MainObstacle {
                         if (foodY>= 0 && foodY <= 4){
                             done = true;
                         } else {
-                            System.out.println("Choose a number between 1 and 4 for y!");
+                            System.out.println("Choose a number between 0 and 3 for y!");
                         }
                     } else {
-                        System.out.println("Invalid input. Choose a number between 1 and 4 for y!");
+                        System.out.println("Invalid input. Choose a number between 0 and 3 for y!");
                         scanner.next();
                     }
                 } else {
-                    System.out.println("Choose a number between 1 and 4 for x!");
+                    System.out.println("Choose a number between 0 and 3 for x!");
                 }
             } else {
-                System.out.println("Invalid input. Choose a number between 1 and 4 for x!");
+                System.out.println("Invalid input. Choose a number between 0 and 3 for x!");
                 scanner.next();
             }
         }
@@ -93,35 +95,63 @@ public class MainObstacle {
         System.out.println(dumbRobot.getColor() + " Robot at" + "(" + dumbRobot.getX() + ", " + dumbRobot.getY() + ")");
         System.out.println(smartRobot.getColor() + " Robot at" + "(" + smartRobot.getX() + ", " + smartRobot.getY() + ")");
         System.out.println("Food at (" + food.getX() + ", " + food.getY() + ")");
+        System.out.println("Bomb at (" + bomb.getX() + ", " + bomb.getY() + ")");
         scanner.nextLine();
 
-        while (!dumbRobot.foundFood(food) || !smartRobot.foundFood(food)){
+        int validMoves = 0;
+        int validMoves2 = 0;
+        int invalidMoves = 0;
+        int totalMoves = 0;
+
+        while (!dumbRobot.foundFood(food) && !dumbRobot.wasExploded(bomb)){
             try {
                 int randomMove = random.nextInt(1, 5);
-                System.out.println("Robot one: ");
+                System.out.println("Dumb robot: ");
                 dumbRobot.move(randomMove);
+                validMoves++;
                 SleepUtil.sleepMs(2500);
             } catch (InvalidMovementException e) {
-                System.out.println(dumbRobot.getColor() + " Robot 1 " + e.getMessage());
+                invalidMoves++;
+                System.out.println(dumbRobot.getColor() + " Dumb robot " + e.getMessage());
             }
 
-            if (dumbRobot.foundFood(food)){
-                System.out.println(dumbRobot.getColor() + " Robot 1 found food!");
-            }
-
-            try {
-                int randomMove = random.nextInt(1, 5);
-                System.out.println("Robot two: ");
-                smartRobot.move(randomMove);
-                SleepUtil.sleepMs(3000);
-            } catch (InvalidMovementException e) {
-                System.out.println(smartRobot.getColor() + " Robot 2 " + e.getMessage());
-            }
-
-            if (smartRobot.foundFood(food)){
-                System.out.println(smartRobot.getColor() + " Robot 2 found food!");
+            if (dumbRobot.foundFood(food) || dumbRobot.wasExploded(bomb)){
+                if (dumbRobot.foundFood(food)){
+                    System.out.println(dumbRobot.getColor() + " Dumb robot found food!");
+                } else if (dumbRobot.wasExploded(bomb)) {
+                    System.out.println(dumbRobot.getColor() + " Dumb robot exploded!");
+                }
+                break;
             }
         }
+
+        while(!smartRobot.foundFood(food) && !smartRobot.wasExploded(bomb)){
+            try {
+                System.out.println("Smart robot: ");
+                smartRobot.move(0); // ignora o inteiro, serve só pra inicializar
+                validMoves2++;
+                totalMoves++;
+                SleepUtil.sleepMs(2600);
+            } catch (InvalidMovementException e) {
+                totalMoves++;
+                System.out.println(smartRobot.getColor() + " Smart robot " + e.getMessage());
+            }
+
+            if (smartRobot.foundFood(food) || smartRobot.wasExploded(bomb)){
+                if (smartRobot.foundFood(food)){
+                    System.out.println(smartRobot.getColor() + " Smart robot found food!");
+                } else if (smartRobot.wasExploded(bomb)){
+                    System.out.println(smartRobot.getColor() + " Smart robot exploded!");
+                }
+                
+                break;
+            }
+        }
+
+        int invalidMoves2 = (totalMoves - validMoves2);
+        System.out.println("(Dumb robot) Valid moves: " + validMoves + ", invalid moves: " + invalidMoves);
+        System.out.println("(Smart robot) Valid moves: " + validMoves2 + ", invalid moves: " + invalidMoves2);
+
         scanner.close();
 
     }

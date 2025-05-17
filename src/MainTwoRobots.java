@@ -66,24 +66,24 @@ public class MainTwoRobots {
             System.out.println("Choose the food's coordinates. Choose x:");
             if (scanner.hasNextInt()){
                 foodX = scanner.nextInt();
-                if (foodX>=0 && foodX <= 4){
+                if (foodX>=0 && foodX <= 3){
                     System.out.println("Now, choose y:");
                     if (scanner.hasNextInt()){
                         foodY = scanner.nextInt();
-                        if (foodY>= 0 && foodY <= 4){
+                        if (foodY>= 0 && foodY <= 3){
                             done = true;
                         } else {
-                            System.out.println("Choose a number between 1 and 4 for y!");
+                            System.out.println("Choose a number between 0 and 3 for y!");
                         }
                     } else {
-                        System.out.println("Invalid input. Choose a number between 1 and 4 for y!");
+                        System.out.println("Invalid input. Choose a number between 0 and 3 for y!");
                         scanner.next();
                     }
                 } else {
-                    System.out.println("Choose a number between 1 and 4 for x!");
+                    System.out.println("Choose a number between 0 and 3 for x!");
                 }
             } else {
-                System.out.println("Invalid input. Choose a number between 1 and 4 for x!");
+                System.out.println("Invalid input. Choose a number between 0 and 3 for x!");
                 scanner.next();
             }
         }
@@ -121,7 +121,7 @@ public class MainTwoRobots {
         while(!smartRobot.foundFood(food)){
             try {
                 System.out.println("Smart robot: ");
-                smartRobot.move(0); // ignora o inteiro
+                smartRobot.move(0); // ignora o inteiro, serve só pra inicializar
                 validMoves2++;
                 totalMoves++;
                 SleepUtil.sleepMs(2600);
@@ -136,7 +136,7 @@ public class MainTwoRobots {
             }
         }
 
-        int invalidMoves2 = (totalMoves - validMoves);
+        int invalidMoves2 = (totalMoves - validMoves2);
         System.out.println("(Dumb robot) Valid moves: " + validMoves + ", invalid moves: " + invalidMoves);
         System.out.println("(Smart robot) Valid moves: " + validMoves2 + ", invalid moves: " + invalidMoves2);
 
