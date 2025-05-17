@@ -5,7 +5,7 @@ public class Bomb extends Obstacle{
 
     @Override
     public void bump(Robot robot){
-        System.out.println("Robot" + robot.getColor() + "bumped and exploded!");
+        System.out.println(robot.getColor() + " Robot bumped and exploded!");
         robot.setExploded(true);
     }
 
