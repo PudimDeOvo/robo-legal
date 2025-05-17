@@ -200,7 +200,6 @@ public class MainObstacle {
             } catch (InvalidMovementException e) {
                 invalidMoves++;
                 System.out.println(dumbRobot.getColor() + " Dumb robot " + e.getMessage());
-                return;
             }
 
             for (Obstacle obs : obstacles){
@@ -213,6 +212,7 @@ public class MainObstacle {
                         try{
                             dumbRobot.setX(oldX);
                             dumbRobot.setY(oldY);
+                            System.out.println("Went back to (" + dumbRobot.getX() + ", " + dumbRobot.getY() + ").");
                         } catch (InvalidMovementException e){
                             System.out.println("Going back.");
                         }
@@ -224,14 +224,14 @@ public class MainObstacle {
             if (dumbRobot.foundFood(food)){
                 if (dumbRobot.foundFood(food)){
                     System.out.println(dumbRobot.getColor() + " Dumb robot found food!");
-                } else if (dumbRobot.wasExploded(bomb)) {
-                    System.out.println(dumbRobot.getColor() + " Dumb robot exploded!");
                 }
                 break;
             }
         }
 
-        while(!smartRobot.foundFood(food) && !smartRobot.wasExploded(bomb)){
+        while(!smartRobot.foundFood(food)){
+            int oldX = smartRobot.getX();
+            int oldY = smartRobot.getY();
             try {
                 System.out.println("Smart robot: ");
                 smartRobot.move(0); // ignora o inteiro, serve só pra inicializar
@@ -244,13 +244,29 @@ public class MainObstacle {
                 System.out.println(smartRobot.getColor() + " Smart robot " + e.getMessage());
             }
 
-            if (smartRobot.foundFood(food)|| smartRobot.wasExploded(bomb)){
+            for (Obstacle obs : obstacles){
+                if(smartRobot.getX() == obs.getX() && smartRobot.getY() == obs.getY()){
+                    obs.bump(smartRobot);
+                    if (smartRobot.wasExploded(bomb)){
+                        System.out.println("Smart robot exploded!");
+                        return;
+                    } else {
+                        try{
+                            smartRobot.setX(oldX);
+                            smartRobot.setY(oldY);
+                            System.out.println("Went back to (" + smartRobot.getX() + ", " + smartRobot.getY() + ").");
+                        } catch (InvalidMovementException e){
+                            System.out.println("Going back.");
+                        }
+                        
+                    }
+                }
+            }
+
+            if (smartRobot.foundFood(food)){
                 if (smartRobot.foundFood(food)){
                     System.out.println(smartRobot.getColor() + " Smart robot found food!");
-                } else if (smartRobot.wasExploded(bomb)){
-                    System.out.println(smartRobot.getColor() + " Smart robot exploded!");
                 }
-                
                 break;
             }
         }
