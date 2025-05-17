@@ -100,7 +100,7 @@ public class MainTwoDumbRobots {
         int invalidMoves = 0;
         int invalidMoves2 = 0;
 
-        while (!robotOne.foundFood(food) && !robotTwo.foundFood(food)){
+        while (!robotOne.foundFood(food)){
             try {
                 int randomMove = random.nextInt(1, 5);
                 System.out.println("Robot one: ");
@@ -115,7 +115,8 @@ public class MainTwoDumbRobots {
             if (robotOne.foundFood(food)){
                 System.out.println(robotOne.getColor() + " Robot 1 found food!");
             }
-
+        }
+        while(!robotTwo.foundFood(food)){
             try {
                 int randomMove = random.nextInt(1, 5);
                 System.out.println("Robot two: ");
@@ -124,14 +125,15 @@ public class MainTwoDumbRobots {
                 SleepUtil.sleepMs(2600);
             } catch (InvalidMovementException e) {
                 invalidMoves2++;
-                System.out.println(robotTwo.getColor() + " Robot 2 " + e.getMessage());
+                System.out.println(robotTwo.getColor() + " Robot two " + e.getMessage());
             }
 
             if (robotTwo.foundFood(food)){
-                System.out.println(robotTwo.getColor() + " Robot 2 found food!");
+                System.out.println(robotTwo.getColor() + " Robot two found food!");
             }
             
         }
+    
 
         System.out.println("(Robot one) Valid moves: " + validMoves + ", invalid moves: " + invalidMoves);
         System.out.println("(Robot two) Valid moves: " + validMoves2 + ", invalid moves: " + invalidMoves2);

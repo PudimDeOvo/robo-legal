@@ -5,7 +5,7 @@ public class Rock extends Obstacle{
 
     @Override
     public void bump(Robot robot){
-        System.out.println("Robot" + robot.getColor() + "bumped into a rock!");
+        System.out.println(robot.getColor() + " Robot bumped into a rock!");
         robot.setExploded(false);
     }
 

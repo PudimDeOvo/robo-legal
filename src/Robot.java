@@ -4,7 +4,7 @@ public class Robot{
     private String color;
     private boolean hasFood;
     private boolean exploded;
-    private static final int GRID_LIMIT = 4;
+    private static final int GRID_LIMIT = 3;
 
 
     public Robot(int x, int y, String color, boolean hasFood, boolean exploded){

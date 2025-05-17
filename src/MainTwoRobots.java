@@ -55,7 +55,7 @@ public class MainTwoRobots {
         String colorTwo = colors[chosenColor2];
 
         Robot dumbRobot = new Robot(0, 0, colorOne, false, false);
-        Robot smartRobot = new SmartRobot(0, 0, colorTwo, false, false);
+        SmartRobot smartRobot = new SmartRobot(0, 0, colorTwo, false, false);
     
         int foodX = 0;
         int foodY = 0;
@@ -98,7 +98,7 @@ public class MainTwoRobots {
         int validMoves = 0;
         int validMoves2 = 0;
         int invalidMoves = 0;
-        int totalMoves = 0;
+        int invalidMoves2 = 0;
 
         while (!dumbRobot.foundFood(food)){
             try {
@@ -123,10 +123,11 @@ public class MainTwoRobots {
                 System.out.println("Smart robot: ");
                 smartRobot.move(0); // ignora o inteiro, serve só pra inicializar
                 validMoves2++;
-                totalMoves++;
                 SleepUtil.sleepMs(2600);
+                if (smartRobot.getFailed()){
+                    invalidMoves2++;
+                }
             } catch (InvalidMovementException e) {
-                totalMoves++;
                 System.out.println(smartRobot.getColor() + " Smart robot " + e.getMessage());
             }
 
@@ -136,7 +137,6 @@ public class MainTwoRobots {
             }
         }
 
-        int invalidMoves2 = (totalMoves - validMoves2);
         System.out.println("(Dumb robot) Valid moves: " + validMoves + ", invalid moves: " + invalidMoves);
         System.out.println("(Smart robot) Valid moves: " + validMoves2 + ", invalid moves: " + invalidMoves2);
 
