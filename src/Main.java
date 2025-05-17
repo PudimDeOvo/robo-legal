@@ -63,7 +63,7 @@ public class Main {
         
         Food food = new Food(foodX, foodY);
 
-        System.out.println(robot.getColor() + " Robot at" + "(" + robot.getX() + ", " + robot.getY() + ")");
+        System.out.println(robot.getColor() + " Robot at " + "(" + robot.getX() + ", " + robot.getY() + ")");
         System.out.println("Food at (" + food.getX() + ", " + food.getY() + ")");
         scanner.nextLine();
 

@@ -90,8 +90,8 @@ public class MainTwoDumbRobots {
         
         Food food = new Food(foodX, foodY);
 
-        System.out.println(robotOne.getColor() + " Robot at" + "(" + robotOne.getX() + ", " + robotOne.getY() + ")");
-        System.out.println(robotTwo.getColor() + " Robot at" + "(" + robotTwo.getX() + ", " + robotTwo.getY() + ")");
+        System.out.println(robotOne.getColor() + " Robot at " + "(" + robotOne.getX() + ", " + robotOne.getY() + ")");
+        System.out.println(robotTwo.getColor() + " Robot at " + "(" + robotTwo.getX() + ", " + robotTwo.getY() + ")");
         System.out.println("Food at (" + food.getX() + ", " + food.getY() + ")");
         scanner.nextLine();
 
@@ -132,8 +132,10 @@ public class MainTwoDumbRobots {
             }
             
         }
+
         System.out.println("(Robot one) Valid moves: " + validMoves + ", invalid moves: " + invalidMoves);
         System.out.println("(Robot two) Valid moves: " + validMoves2 + ", invalid moves: " + invalidMoves2);
+
         scanner.close();
 
     }
