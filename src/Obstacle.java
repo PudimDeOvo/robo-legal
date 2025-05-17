@@ -3,7 +3,7 @@ public abstract class Obstacle {
     protected int y;
     protected int id;
 
-    public Obstacle(int x, int y, int id){
+    public Obstacle(int id, int x, int y){
         this.id = id;
         this.x = x;
         this.y = y;
@@ -34,7 +34,7 @@ public abstract class Obstacle {
         this.y = y;
     }
 
-    public abstract void bump(Robot robot) throws InvalidMovementException;
+    public abstract void bump(Robot robot);
 
     public abstract boolean wasExploded();
 }

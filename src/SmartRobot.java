@@ -5,8 +5,9 @@ public class SmartRobot extends Robot {
     //boolean gaveUp;
     public SmartRobot(int x, int y, String color, boolean hasFood, boolean exploded){
         super(x, y, color, false, false);
-        //this.gaveUp = gaveUp;
     }
+
+    boolean failed = false;
 
     @Override
     public void move(int movement) throws InvalidMovementException{
@@ -26,16 +27,21 @@ public class SmartRobot extends Robot {
             directions.set(j, temp);
             // troca directions[i] e directions [j]
         }
-    
+
         for (int dir : directions){
             try{
                 super.move(dir);
                 return; 
             } catch (InvalidMovementException e) {
+                failed = true;
                 System.out.println("Direction " + dir + " failed."); // debug
             }
         }
         // se todas as direções falharem
         throw new InvalidMovementException("No movement available. The robot is stuck!");
     }
+
+    public boolean getFailed(){
+        return failed;
+    } 
 }
