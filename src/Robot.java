@@ -88,7 +88,7 @@ public class Robot{
                     System.out.println("new coordinates: (" + x + ", " + y + ").");
                 } else {
                     System.out.println("out of bound at (" + x + ", " + y + ").");
-                    throw new InvalidMovementException("coordinate Y is out of bounds!");
+                    throw new InvalidMovementException("Out of bounds!");
                 }
             }
 
@@ -98,7 +98,7 @@ public class Robot{
                     System.out.println("new coordinates: (" + x + ", " + y + ").");
                 } else {
                     System.out.println("out of bound at (" + x + ", " + y + ").");
-                    throw new InvalidMovementException("coordinate Y is out of bounds!");
+                    throw new InvalidMovementException("Out of bounds!");
                 }
             }
 
@@ -108,7 +108,7 @@ public class Robot{
                     System.out.println("new coordinates: (" + x + ", " + y + ").");
                 } else {
                     System.out.println("out of bound at (" + x + ", " + y + ").");
-                    throw new InvalidMovementException("coordinate X is out of bounds!");
+                    throw new InvalidMovementException("Out of bounds!");
                 }
             }
 
@@ -118,7 +118,7 @@ public class Robot{
                     System.out.println("new coordinates: (" + x + ", " + y + ").");
                 } else {
                     System.out.println("out of bound at (" + x + ", " + y + ").");
-                    throw new InvalidMovementException("coordinate X is out of bounds!");
+                    throw new InvalidMovementException("Out of bounds!");
                 }
             }
             default -> throw new InvalidMovementException("Invalid input.");
@@ -133,7 +133,7 @@ public class Robot{
                     System.out.println("new coordinates: (" + x + ", " + y + ").");
                 } else {
                     System.out.println("out of bound at (" + x + ", " + y + ").");
-                    throw new InvalidMovementException("coordinate Y is out of bounds!");
+                    throw new InvalidMovementException("Out of bounds!");
                 }
             }
 
@@ -160,7 +160,7 @@ public class Robot{
             case 4 -> {
                 if (x-1 >= 0){
                     x--;
-                    System.out.println("new coordinates: (" + x + ", " + y + ").");
+                    System.out.println("new coordinates: (" + getX() + ", " + getY() + ").");
                 } else {
                     System.out.println("out of bound at (" + x + ", " + y + ").");
                     throw new InvalidMovementException("coordinate X is out of bounds!");

@@ -33,8 +33,8 @@ public class SmartRobot extends Robot {
                 super.move(dir);
                 return; 
             } catch (InvalidMovementException e) {
-                failed = true;
-                System.out.println("Direction " + dir + " failed."); // debug
+                throw new InvalidMovementException("Out of bounds!");
+
             }
         }
         // se todas as direções falharem
