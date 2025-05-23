@@ -3,8 +3,8 @@ import java.util.Random;
 
 public class SmartRobot extends Robot {
     //boolean gaveUp;
-    public SmartRobot(int x, int y, String color, boolean hasFood, boolean exploded){
-        super(x, y, color, false, false);
+    public SmartRobot(Grid grid, int x, int y, String color, boolean hasFood, boolean exploded){
+        super(grid, x, y, color, false, false);
     }
 
     boolean failed = false;
@@ -33,7 +33,8 @@ public class SmartRobot extends Robot {
                 super.move(dir);
                 return; 
             } catch (InvalidMovementException e) {
-                throw new InvalidMovementException("Out of bounds!");
+                System.out.println("out of bound at (" + getX() + ", " + getY() + ").");
+                throw new InvalidMovementException("is out of bounds!");
             }
         }
         // se todas as direções falharem

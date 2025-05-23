@@ -54,9 +54,6 @@ public class MainTwoDumbRobots {
 
         String colorTwo = colors[chosenColor2];
 
-        Robot robotOne = new Robot(0, 0, colorOne, false, false);
-        Robot robotTwo = new Robot(0, 0, colorTwo, false, false);
-
         int foodX = 0;
         int foodY = 0;
 
@@ -89,6 +86,9 @@ public class MainTwoDumbRobots {
         }
         
         Food food = new Food(foodX, foodY);
+        Grid grid = new Grid(null, food);
+        Robot robotOne = new Robot(grid, 0, 0, colorOne, false, false);
+        Robot robotTwo = new Robot(grid, 0, 0, colorTwo, false, false);
 
         System.out.println(robotOne.getColor() + " Robot at " + "(" + robotOne.getX() + ", " + robotOne.getY() + ")");
         System.out.println(robotTwo.getColor() + " Robot at " + "(" + robotTwo.getX() + ", " + robotTwo.getY() + ")");

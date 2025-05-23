@@ -55,9 +55,6 @@ public class MainObstacle {
         }
 
         String colorTwo = colors[chosenColor2];
-
-        Robot dumbRobot = new Robot(0, 0, colorOne, false, false);
-        SmartRobot smartRobot = new SmartRobot(0, 0, colorTwo, false, false);
     
         int foodX = 0;
         int foodY = 0;
@@ -134,6 +131,8 @@ public class MainObstacle {
         int placedRocks = 0;
 
         Grid grid = new Grid(obstacles, food);
+        Robot dumbRobot = new Robot(grid, 0, 0, colorOne, false, false);
+        SmartRobot smartRobot = new SmartRobot(grid, 0, 0, colorTwo, false, false);
 
         while (rocks > placedRocks){
             System.out.println("Choose the rock coordinates. Choose x: ");
@@ -229,7 +228,7 @@ public class MainObstacle {
             }
         }
 
-        while(!smartRobot.foundFood(food)){
+        while(!smartRobot.foundFood(food) && !smartRobot.wasExploded(bomb)){
             int oldX = smartRobot.getX();
             int oldY = smartRobot.getY();
             try {
@@ -241,6 +240,7 @@ public class MainObstacle {
                     invalidMoves2++;
                 }
             } catch (InvalidMovementException e) {
+                invalidMoves2++;
                 System.out.println(smartRobot.getColor() + " Smart robot " + e.getMessage());
             }
 
@@ -254,9 +254,11 @@ public class MainObstacle {
                         try{
                             smartRobot.setX(oldX);
                             smartRobot.setY(oldY);
+                            invalidMoves2++;
                             System.out.println("Went back to (" + smartRobot.getX() + ", " + smartRobot.getY() + ").");
                         } catch (InvalidMovementException e){
                             System.out.println("Going back.");
+                            invalidMoves2++;
                         }
                         
                     }

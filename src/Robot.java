@@ -5,11 +5,13 @@ public class Robot{
     private boolean hasFood;
     private boolean exploded;
     private static final int GRID_LIMIT = 3;
+    private Grid grid;
 
 
-    public Robot(int x, int y, String color, boolean hasFood, boolean exploded){
+    public Robot(Grid grid, int x, int y, String color, boolean hasFood, boolean exploded){
         this.x = 0;
         this.y = 0;
+        this.grid = grid;
         this.color = color;
         this.hasFood = false;
         this.exploded = false;
@@ -88,7 +90,7 @@ public class Robot{
                     System.out.println("new coordinates: (" + x + ", " + y + ").");
                 } else {
                     System.out.println("out of bound at (" + x + ", " + y + ").");
-                    throw new InvalidMovementException("Out of bounds!");
+                    throw new InvalidMovementException("out of bounds!");
                 }
             }
 
@@ -98,7 +100,7 @@ public class Robot{
                     System.out.println("new coordinates: (" + x + ", " + y + ").");
                 } else {
                     System.out.println("out of bound at (" + x + ", " + y + ").");
-                    throw new InvalidMovementException("Out of bounds!");
+                    throw new InvalidMovementException("out of bounds!");
                 }
             }
 
@@ -108,7 +110,7 @@ public class Robot{
                     System.out.println("new coordinates: (" + x + ", " + y + ").");
                 } else {
                     System.out.println("out of bound at (" + x + ", " + y + ").");
-                    throw new InvalidMovementException("Out of bounds!");
+                    throw new InvalidMovementException("out of bounds!");
                 }
             }
 
@@ -118,7 +120,7 @@ public class Robot{
                     System.out.println("new coordinates: (" + x + ", " + y + ").");
                 } else {
                     System.out.println("out of bound at (" + x + ", " + y + ").");
-                    throw new InvalidMovementException("Out of bounds!");
+                    throw new InvalidMovementException("out of bounds!");
                 }
             }
             default -> throw new InvalidMovementException("Invalid input.");
@@ -133,7 +135,7 @@ public class Robot{
                     System.out.println("new coordinates: (" + x + ", " + y + ").");
                 } else {
                     System.out.println("out of bound at (" + x + ", " + y + ").");
-                    throw new InvalidMovementException("Out of bounds!");
+                    throw new InvalidMovementException("out of bounds!");
                 }
             }
 
@@ -143,7 +145,7 @@ public class Robot{
                     System.out.println("new coordinates: (" + x + ", " + y + ").");
                 } else {
                     System.out.println("out of bound at (" + x + ", " + y + ").");
-                    throw new InvalidMovementException("Out of bounds!");
+                    throw new InvalidMovementException("out of bounds!");
                 }
             }
 
@@ -153,21 +155,22 @@ public class Robot{
                     System.out.println("new coordinates: (" + x + ", " + y + ").");
                 } else {
                     System.out.println("out of bound at (" + x + ", " + y + ").");
-                    throw new InvalidMovementException("Out of bounds!");
+                    throw new InvalidMovementException("out of bounds!");
                 }
             }
 
             case 4 -> {
                 if (x-1 >= 0){
                     x--;
-                    System.out.println("new coordinates: (" + getX() + ", " + getY() + ").");
+                    System.out.println("new coordinates: (" + x + ", " + y + ").");
                 } else {
                     System.out.println("out of bound at (" + x + ", " + y + ").");
-                    throw new InvalidMovementException("Out of bounds!");
+                    throw new InvalidMovementException("out of bounds!");
                 }
             }
             default -> throw new InvalidMovementException("Invalid input.");
         }
+        grid.printPosition(x, y);
     }
 
 }

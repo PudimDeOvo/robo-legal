@@ -29,7 +29,6 @@ public class Main {
         }
 
         String color = colors[chosenColor];
-        Robot robot = new Robot(0, 0, color, false, false);
         int foodX = 0;
         int foodY = 0;
 
@@ -62,6 +61,8 @@ public class Main {
         }
         
         Food food = new Food(foodX, foodY);
+        Grid grid = new Grid(null, food);
+        Robot robot = new Robot(grid, 0, 0, color, false, false);
 
         System.out.println(robot.getColor() + " Robot at " + "(" + robot.getX() + ", " + robot.getY() + ")");
         System.out.println("Food at (" + food.getX() + ", " + food.getY() + ")");
@@ -72,7 +73,16 @@ public class Main {
             String movement = scanner.nextLine();
 
             try{
-                robot.move(movement);
+                int move = switch (movement.toLowerCase()){
+                    case "up"-> 1;
+                    case "down"-> 2;
+                    case "right"-> 3;
+                    case "left"-> 4;
+
+                    default -> throw new InvalidMovementException("Invalid input.");
+                };
+
+                robot.move(move);
                 SleepUtil.sleepMs(900);
             } catch (InvalidMovementException e){
                 System.out.println(e.getMessage());
