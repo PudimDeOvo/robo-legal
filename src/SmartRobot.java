@@ -34,7 +34,6 @@ public class SmartRobot extends Robot {
                 return; 
             } catch (InvalidMovementException e) {
                 throw new InvalidMovementException("Out of bounds!");
-
             }
         }
         // se todas as direções falharem
