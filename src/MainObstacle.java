@@ -255,12 +255,12 @@ public class MainObstacle {
                         break;
                     } else {
                         try{
+                            SleepUtil.sleepMs(2600);
                             smartRobot.setX(oldX);
                             smartRobot.setY(oldY);
                             invalidMoves2++;
                             System.out.println("Went back to (" + smartRobot.getX() + ", " + smartRobot.getY() + ").");
                             grid.printPosition(smartRobot.getX(), smartRobot.getY());
-                            SleepUtil.sleepMs(2600);
                             invalidMoves2++;
                         } catch (InvalidMovementException e){
                             System.out.println("bateu "); // debug
