@@ -45,17 +45,17 @@ public class Main {
                         if (foodY>= 0 && foodY <= 4){
                             done = true;
                         } else {
-                            System.out.println("Choose a number between 1 and 4 for y!");
+                            System.out.println("Choose a number between 0 and 3 for y!");
                         }
                     } else {
-                        System.out.println("Invalid input. Choose a number between 1 and 4 for y!");
+                        System.out.println("Invalid input. Choose a number between 0 and 3 for y!");
                         scanner.next();
                     }
                 } else {
-                    System.out.println("Choose a number between 1 and 4 for x!");
+                    System.out.println("Choose a number between 0 and 3 for x!");
                 }
             } else {
-                System.out.println("Invalid input. Choose a number between 1 and 4 for x!");
+                System.out.println("Invalid input. Choose a number between 0 and 3 for x!");
                 scanner.next();
             }
         }
@@ -67,6 +67,8 @@ public class Main {
         System.out.println(robot.getColor() + " Robot at " + "(" + robot.getX() + ", " + robot.getY() + ")");
         System.out.println("Food at (" + food.getX() + ", " + food.getY() + ")");
         scanner.nextLine();
+
+        grid.printPosition(0, 0);
 
         while (!robot.foundFood(food)){
             System.out.println("Choose the next move! Remember: you must write up, down, right or left.");

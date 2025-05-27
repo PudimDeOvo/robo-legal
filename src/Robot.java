@@ -172,5 +172,4 @@ public class Robot{
         }
         grid.printPosition(x, y);
     }
-
 }

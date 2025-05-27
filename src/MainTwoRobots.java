@@ -100,13 +100,15 @@ public class MainTwoRobots {
         int invalidMoves = 0;
         int invalidMoves2 = 0;
 
+        grid.printPosition(0, 0);
+
         while (!dumbRobot.foundFood(food)){
             try {
                 int randomMove = random.nextInt(1, 5);
                 System.out.println("Dumb robot: ");
                 dumbRobot.move(randomMove);
                 validMoves++;
-                SleepUtil.sleepMs(2500);
+                SleepUtil.sleepMs(2600);
             } catch (InvalidMovementException e) {
                 invalidMoves++;
                 System.out.println(dumbRobot.getColor() + " Dumb robot " + e.getMessage());
@@ -118,15 +120,14 @@ public class MainTwoRobots {
             }
         }
 
+        grid.printPosition(0, 0);
+
         while(!smartRobot.foundFood(food)){
             try {
                 System.out.println("Smart robot: ");
                 smartRobot.move(0); // ignora o inteiro, serve só pra inicializar
                 validMoves2++;
                 SleepUtil.sleepMs(2600);
-                if (smartRobot.getFailed()){
-                    invalidMoves2++;
-                }
             } catch (InvalidMovementException e) {
                 System.out.println(smartRobot.getColor() + " Smart robot " + e.getMessage());
             }

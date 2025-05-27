@@ -100,22 +100,27 @@ public class MainTwoDumbRobots {
         int invalidMoves = 0;
         int invalidMoves2 = 0;
 
+        grid.printPosition(0, 0);
+
         while (!robotOne.foundFood(food)){
             try {
                 int randomMove = random.nextInt(1, 5);
                 System.out.println("Robot one: ");
                 robotOne.move(randomMove);
                 validMoves++;
-                SleepUtil.sleepMs(2500);
+                SleepUtil.sleepMs(2600);
             } catch (InvalidMovementException e) {
                 invalidMoves++;
-                System.out.println(robotOne.getColor() + " Robot 1 " + e.getMessage());
+                System.out.println(robotOne.getColor() + " Robot one " + e.getMessage());
             }
 
             if (robotOne.foundFood(food)){
-                System.out.println(robotOne.getColor() + " Robot 1 found food!");
+                System.out.println(robotOne.getColor() + " Robot one found food!");
             }
         }
+
+        grid.printPosition(0, 0);
+
         while(!robotTwo.foundFood(food)){
             try {
                 int randomMove = random.nextInt(1, 5);

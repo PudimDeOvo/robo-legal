@@ -7,8 +7,6 @@ public class SmartRobot extends Robot {
         super(grid, x, y, color, false, false);
     }
 
-    boolean failed = false;
-
     @Override
     public void move(int movement) throws InvalidMovementException{
         ArrayList<Integer> directions = new ArrayList<>(); 
@@ -31,17 +29,11 @@ public class SmartRobot extends Robot {
         for (int dir : directions){
             try{
                 super.move(dir);
-                return; 
+                return;
             } catch (InvalidMovementException e) {
-                System.out.println("out of bound at (" + getX() + ", " + getY() + ").");
-                throw new InvalidMovementException("is out of bounds!");
-            }
+                }
         }
         // se todas as direções falharem
         throw new InvalidMovementException("No movement available. The robot is stuck!");
     }
-
-    public boolean getFailed(){
-        return failed;
-    } 
 }

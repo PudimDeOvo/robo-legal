@@ -27,6 +27,10 @@ public class Grid {
     }
 
     // funções auxiliares 
+    public List<Obstacle> getObstacles(){
+        return obstacles;
+    }
+
     public boolean isRock(int x, int y){
         for (Obstacle obs : obstacles){
             if (x == obs.getX() && y == obs.getY() && obs instanceof Rock){
@@ -47,8 +51,10 @@ public class Grid {
 
     public void printPosition(int robotX, int robotY) {
         for (int i = 3; i >= GRID_X; i--) { // COLUNA 
-            for (int j = 0; j <= GRID_Y; j++) { // LINHAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-                if (j == robotX && i == robotY) {
+            for (int j = 0; j <= GRID_Y; j++) { // LINHA
+                if (obstacles!= null && isRock(j, i) && j == robotX && i == robotY) {
+                    System.out.print(" R@ ");
+                } else if (j == robotX && i == robotY) {
                     System.out.print(" R ");
                 } else if (obstacles!= null && isRock(j, i)) {
                     System.out.print(" @ ");
