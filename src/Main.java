@@ -68,7 +68,7 @@ public class Main {
         System.out.println("Food at (" + food.getX() + ", " + food.getY() + ")");
         scanner.nextLine();
 
-        grid.printPosition(0, 0);
+        grid.printPosition(0, 0, robot.getColor());
 
         while (!robot.foundFood(food)){
             System.out.println("Choose the next move! Remember: you must write up, down, right or left.");
@@ -91,7 +91,7 @@ public class Main {
             }
 
             if (robot.foundFood(food)){
-                System.out.println("The " + robot.getColor() + " Robot" + "(" + robot.getX() + ", " + robot.getY() + ")" 
+                System.out.println("The " + grid.colorOfRobot(color, robot.getColor()) + " Robot" + "(" + robot.getX() + ", " + robot.getY() + ")" 
                 + " found food at (" + food.getX() + ", " + food.getY() + ")!");
             }
         }

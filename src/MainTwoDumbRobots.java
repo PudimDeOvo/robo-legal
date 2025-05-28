@@ -38,8 +38,10 @@ public class MainTwoDumbRobots {
         while(true){
             if (scanner.hasNextInt()){
                 chosenColor2 = scanner.nextInt();
+                if (chosenColor2 == chosenColor1 + 1){
+                    System.out.println("You already chose this color. Please, pick another one.");
 
-                if (chosenColor2>=1 && chosenColor2 <= colors.length){
+                } else if (chosenColor2>=1 && chosenColor2 <= colors.length){
                     chosenColor2 -= 1;
                     System.out.println("color " + (chosenColor2+1) + ": " + colors[chosenColor2]);
                     break;
@@ -100,9 +102,10 @@ public class MainTwoDumbRobots {
         int invalidMoves = 0;
         int invalidMoves2 = 0;
 
-        grid.printPosition(0, 0);
+        grid.printPosition(0, 0, robotOne.getColor());
+        grid.printPosition(0, 0, robotTwo.getColor());
 
-        while (!robotOne.foundFood(food)){
+        while (!robotOne.foundFood(food) || !robotTwo.foundFood(food)){
             try {
                 int randomMove = random.nextInt(1, 5);
                 System.out.println("Robot one: ");
@@ -111,17 +114,14 @@ public class MainTwoDumbRobots {
                 SleepUtil.sleepMs(2600);
             } catch (InvalidMovementException e) {
                 invalidMoves++;
-                System.out.println(robotOne.getColor() + " Robot one " + e.getMessage());
+                System.out.println(grid.colorOfRobot(colorOne, robotOne.getColor()) + " Robot one " + e.getMessage());
             }
 
             if (robotOne.foundFood(food)){
-                System.out.println(robotOne.getColor() + " Robot one found food!");
+                System.out.println(grid.colorOfRobot(colorOne, robotOne.getColor()) + " Robot one found food!");
+                break;
             }
-        }
 
-        grid.printPosition(0, 0);
-
-        while(!robotTwo.foundFood(food)){
             try {
                 int randomMove = random.nextInt(1, 5);
                 System.out.println("Robot two: ");
@@ -130,11 +130,12 @@ public class MainTwoDumbRobots {
                 SleepUtil.sleepMs(2600);
             } catch (InvalidMovementException e) {
                 invalidMoves2++;
-                System.out.println(robotTwo.getColor() + " Robot two " + e.getMessage());
+                System.out.println(grid.colorOfRobot(colorTwo, robotTwo.getColor()) + " Robot two " + e.getMessage());
             }
 
             if (robotTwo.foundFood(food)){
-                System.out.println(robotTwo.getColor() + " Robot two found food!");
+                System.out.println(grid.colorOfRobot(colorTwo, robotTwo.getColor()) + " Robot two found food!");
+                break;
             }
             
         }

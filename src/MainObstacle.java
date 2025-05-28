@@ -40,8 +40,9 @@ public class MainObstacle {
         while(true){
             if (scanner.hasNextInt()){
                 chosenColor2 = scanner.nextInt();
-
-                if (chosenColor2>=1 && chosenColor2 <= colors.length){
+                if (chosenColor2 == chosenColor1 + 1){
+                    System.out.println("You already chose this color. Please, pick another one.");
+                } else if (chosenColor2>=1 && chosenColor2 <= colors.length){
                     chosenColor2 -= 1;
                     System.out.println("color " + (chosenColor2+1) + ": " + colors[chosenColor2]);
                     break;
@@ -186,7 +187,7 @@ public class MainObstacle {
         int invalidMoves = 0;
         int invalidMoves2 = 0;
 
-        grid.printPosition(0, 0);
+        grid.printPosition(0, 0, dumbRobot.getColor());
 
         while (!dumbRobot.foundFood(food) && !dumbRobot.wasExploded(bomb)){
             int oldX = dumbRobot.getX();
@@ -200,7 +201,7 @@ public class MainObstacle {
 
             } catch (InvalidMovementException e) {
                 invalidMoves++;
-                System.out.println(dumbRobot.getColor() + " Dumb robot " + e.getMessage());
+                System.out.println(grid.colorOfRobot(colorOne, dumbRobot.getColor()) + " Dumb robot " + e.getMessage());
             }
 
             for (Obstacle obs : obstacles){
@@ -214,7 +215,7 @@ public class MainObstacle {
                             dumbRobot.setX(oldX);
                             dumbRobot.setY(oldY);
                             System.out.println("Went back to (" + dumbRobot.getX() + ", " + dumbRobot.getY() + ").");
-                            grid.printPosition(dumbRobot.getX(), dumbRobot.getY());
+                            grid.printPosition(dumbRobot.getX(), dumbRobot.getY(), dumbRobot.getColor());
                             SleepUtil.sleepMs(2600);
                         } catch (InvalidMovementException e){
                             invalidMoves++;
@@ -226,13 +227,14 @@ public class MainObstacle {
 
             if (dumbRobot.foundFood(food)){
                 if (dumbRobot.foundFood(food)){
-                    System.out.println(dumbRobot.getColor() + " Dumb robot found food!");
+                    System.out.println(grid.colorOfRobot(colorOne, dumbRobot.getColor()) + " Dumb robot found food!");
                 }
                 break;
             }
         }
 
-        grid.printPosition(0, 0);
+        System.err.println("Smart robot: ");
+        grid.printPosition(0, 0, smartRobot.getColor());
 
         while(!smartRobot.foundFood(food) && !smartRobot.wasExploded(bomb)){
             int oldX = smartRobot.getX();
@@ -244,7 +246,7 @@ public class MainObstacle {
                 SleepUtil.sleepMs(2600);
             } catch (InvalidMovementException e) {
                 invalidMoves2++;
-                System.out.println(smartRobot.getColor() + " Smart robot " + e.getMessage());
+                System.out.println(grid.colorOfRobot(colorTwo, smartRobot.getColor()) + " Smart robot " + e.getMessage());
             }
 
             for (Obstacle obs : obstacles){
@@ -260,7 +262,7 @@ public class MainObstacle {
                             smartRobot.setY(oldY);
                             invalidMoves2++;
                             System.out.println("Went back to (" + smartRobot.getX() + ", " + smartRobot.getY() + ").");
-                            grid.printPosition(smartRobot.getX(), smartRobot.getY());
+                            grid.printPosition(smartRobot.getX(), smartRobot.getY(), smartRobot.getColor());
                             invalidMoves2++;
                         } catch (InvalidMovementException e){
                             System.out.println("bateu "); // debug
@@ -272,7 +274,7 @@ public class MainObstacle {
 
             if (smartRobot.foundFood(food)){
                 if (smartRobot.foundFood(food)){
-                    System.out.println(smartRobot.getColor() + " Smart robot found food!");
+                    System.out.println(grid.colorOfRobot(colorTwo, smartRobot.getColor()) + " Smart robot found food!");
                 }
                 break;
             }

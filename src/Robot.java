@@ -170,6 +170,6 @@ public class Robot{
             }
             default -> throw new InvalidMovementException("Invalid input.");
         }
-        grid.printPosition(x, y);
+        grid.printPosition(x, y, getColor());
     }
 }

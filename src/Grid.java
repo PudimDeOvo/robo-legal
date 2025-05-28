@@ -49,13 +49,24 @@ public class Grid {
         return false;
     }
 
-    public void printPosition(int robotX, int robotY) {
+    public String colorOfRobot(String text, String color){
+        String colorCode = switch (color.toLowerCase()){
+            case "red" -> "\u001B[31m";
+            case "blue" -> "\u001B[34m";
+            case "orange" -> "\\033[40m"; // aparentemente não tem laranja :(
+            default -> "\u001B[37m";
+        };
+        String resetCode = "\u001B[0m";
+        return colorCode + text + resetCode;
+    }
+
+    public void printPosition(int robotX, int robotY, String robotColor) {
         for (int i = 3; i >= GRID_X; i--) { // COLUNA 
             for (int j = 0; j <= GRID_Y; j++) { // LINHA
                 if (obstacles!= null && isRock(j, i) && j == robotX && i == robotY) {
-                    System.out.print(" R@ ");
+                    System.out.print(" " + colorOfRobot("R", robotColor) + "@ ");
                 } else if (j == robotX && i == robotY) {
-                    System.out.print(" R ");
+                    System.out.print(" " + colorOfRobot("R", robotColor) + " ");
                 } else if (obstacles!= null && isRock(j, i)) {
                     System.out.print(" @ ");
                 } else if (obstacles!= null && isBomb(j, i)) {

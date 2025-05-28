@@ -18,7 +18,6 @@ public class SmartRobot extends Robot {
             while (randomMove == lastDir){
                 randomMove = random.nextInt(1, 5); // só pra evitar repetir a mesma direção
             }
-            
             try{
                 super.move(randomMove);
                 return; // funciona

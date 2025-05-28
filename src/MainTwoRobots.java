@@ -38,8 +38,10 @@ public class MainTwoRobots {
         while(true){
             if (scanner.hasNextInt()){
                 chosenColor2 = scanner.nextInt();
+                if (chosenColor2 == chosenColor1 + 1){
+                    System.out.println("You already chose this color. Please, pick another one.");
 
-                if (chosenColor2>=1 && chosenColor2 <= colors.length){
+                } else if (chosenColor2>=1 && chosenColor2 <= colors.length){
                     chosenColor2 -= 1;
                     System.out.println("color " + (chosenColor2+1) + ": " + colors[chosenColor2]);
                     break;
@@ -100,7 +102,7 @@ public class MainTwoRobots {
         int invalidMoves = 0;
         int invalidMoves2 = 0;
 
-        grid.printPosition(0, 0);
+        grid.printPosition(0, 0, dumbRobot.getColor());
 
         while (!dumbRobot.foundFood(food)){
             try {
@@ -111,16 +113,16 @@ public class MainTwoRobots {
                 SleepUtil.sleepMs(2600);
             } catch (InvalidMovementException e) {
                 invalidMoves++;
-                System.out.println(dumbRobot.getColor() + " Dumb robot " + e.getMessage());
+                System.out.println(grid.colorOfRobot(colorOne, dumbRobot.getColor()) + " Dumb robot " + e.getMessage());
             }
 
             if (dumbRobot.foundFood(food)){
-                System.out.println(dumbRobot.getColor() + " Dumb robot found food!");
+                System.out.println(grid.colorOfRobot(colorOne, dumbRobot.getColor()) + " Dumb robot found food!");
                 break;
             }
         }
 
-        grid.printPosition(0, 0);
+        grid.printPosition(0, 0, smartRobot.getColor());
 
         while(!smartRobot.foundFood(food)){
             try {
@@ -129,11 +131,11 @@ public class MainTwoRobots {
                 validMoves2++;
                 SleepUtil.sleepMs(2600);
             } catch (InvalidMovementException e) {
-                System.out.println(smartRobot.getColor() + " Smart robot " + e.getMessage());
+                System.out.println(grid.colorOfRobot(colorTwo, smartRobot.getColor()) + " Smart robot " + e.getMessage());
             }
 
             if (smartRobot.foundFood(food)){
-                System.out.println(smartRobot.getColor() + " Smart robot found food!");
+                System.out.println(grid.colorOfRobot(colorTwo, smartRobot.getColor()) + " Smart robot found food!");
                 break;
             }
         }
