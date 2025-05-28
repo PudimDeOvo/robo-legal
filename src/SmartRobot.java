@@ -14,6 +14,8 @@ public class SmartRobot extends Robot {
         Random random = new Random();
 
         while (turns < 20){
+            int oldX = getX();
+            int oldY = getY();
             int randomMove = random.nextInt(1, 5);
             while (randomMove == lastDir){
                 randomMove = random.nextInt(1, 5); // só pra evitar repetir a mesma direção
@@ -24,6 +26,9 @@ public class SmartRobot extends Robot {
             } catch (InvalidMovementException e){
                 turns++;
                 lastDir = randomMove;
+            }
+            if (oldX == getX() && oldY == getY()){
+                throw new InvalidMovementException("Out of bounds!");
             }
         }
         throw new InvalidMovementException("No movement available. The robot is stuck!");

@@ -209,6 +209,7 @@ public class MainObstacle {
                     obs.bump(dumbRobot);
                     if (dumbRobot.wasExploded(bomb)){
                         System.out.println("Dumb robot exploded!");
+                        invalidMoves++;
                         break;
                     } else {
                         try{
@@ -217,6 +218,7 @@ public class MainObstacle {
                             System.out.println("Went back to (" + dumbRobot.getX() + ", " + dumbRobot.getY() + ").");
                             grid.printPosition(dumbRobot.getX(), dumbRobot.getY(), dumbRobot.getColor());
                             SleepUtil.sleepMs(2600);
+                            invalidMoves++;
                         } catch (InvalidMovementException e){
                             invalidMoves++;
                         }
@@ -233,8 +235,10 @@ public class MainObstacle {
             }
         }
 
-        System.err.println("Smart robot: ");
+        System.out.println("Smart robot: ");
         grid.printPosition(0, 0, smartRobot.getColor());
+
+        boolean bumped = false;
 
         while(!smartRobot.foundFood(food) && !smartRobot.wasExploded(bomb)){
             int oldX = smartRobot.getX();
@@ -242,8 +246,8 @@ public class MainObstacle {
             try {
                 System.out.println("Smart robot: ");
                 smartRobot.move(0); // ignora o inteiro, serve só pra inicializar
-                validMoves2++;
                 SleepUtil.sleepMs(2600);
+                validMoves2++;
             } catch (InvalidMovementException e) {
                 invalidMoves2++;
                 System.out.println(grid.colorOfRobot(colorTwo, smartRobot.getColor()) + " Smart robot " + e.getMessage());
@@ -254,16 +258,16 @@ public class MainObstacle {
                     obs.bump(smartRobot);
                     if (smartRobot.wasExploded(bomb)){
                         System.out.println("Smart robot exploded!");
+                        invalidMoves2++;
                         break;
                     } else {
                         try{
+                            bumped = true;
                             SleepUtil.sleepMs(2600);
                             smartRobot.setX(oldX);
                             smartRobot.setY(oldY);
-                            invalidMoves2++;
                             System.out.println("Went back to (" + smartRobot.getX() + ", " + smartRobot.getY() + ").");
                             grid.printPosition(smartRobot.getX(), smartRobot.getY(), smartRobot.getColor());
-                            invalidMoves2++;
                         } catch (InvalidMovementException e){
                             System.out.println("bateu "); // debug
                         }
@@ -272,6 +276,10 @@ public class MainObstacle {
                 }
             }
 
+            if (bumped){
+                invalidMoves2++;
+            }
+            
             if (smartRobot.foundFood(food)){
                 if (smartRobot.foundFood(food)){
                     System.out.println(grid.colorOfRobot(colorTwo, smartRobot.getColor()) + " Smart robot found food!");

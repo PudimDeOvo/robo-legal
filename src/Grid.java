@@ -53,7 +53,7 @@ public class Grid {
         String colorCode = switch (color.toLowerCase()){
             case "red" -> "\u001B[31m";
             case "blue" -> "\u001B[34m";
-            case "orange" -> "\\033[40m"; // aparentemente não tem laranja :(
+            case "orange" -> "\u001B[33m"; // aparentemente não tem laranja :(
             default -> "\u001B[37m";
         };
         String resetCode = "\u001B[0m";
