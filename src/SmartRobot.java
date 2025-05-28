@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Random;
 
 public class SmartRobot extends Robot {
@@ -7,41 +6,26 @@ public class SmartRobot extends Robot {
         super(grid, x, y, color, false, false);
     }
 
-    boolean failed = false;
-
     @Override
     public void move(int movement) throws InvalidMovementException{
-        ArrayList<Integer> directions = new ArrayList<>(); 
-        directions.add(1);
-        directions.add(2);
-        directions.add(3);
-        directions.add(4);
+        int turns = 0;
+        int lastDir = 0;
 
         Random random = new Random();
 
-        // simula uma randomização de movimento
-        for (int i = 0; i < directions.size(); i++){
-            int j = random.nextInt(directions.size());
-            int temp = directions.get(i);
-            directions.set(i, directions.get(j));
-            directions.set(j, temp);
-            // troca directions[i] e directions [j]
-        }
-
-        for (int dir : directions){
+        while (turns < 20){
+            int randomMove = random.nextInt(1, 5);
+            while (randomMove == lastDir){
+                randomMove = random.nextInt(1, 5); // só pra evitar repetir a mesma direção
+            }
             try{
-                super.move(dir);
-                return; 
-            } catch (InvalidMovementException e) {
-                System.out.println("out of bound at (" + getX() + ", " + getY() + ").");
-                throw new InvalidMovementException("is out of bounds!");
+                super.move(randomMove);
+                return; // funciona
+            } catch (InvalidMovementException e){
+                turns++;
+                lastDir = randomMove;
             }
         }
-        // se todas as direções falharem
         throw new InvalidMovementException("No movement available. The robot is stuck!");
     }
-
-    public boolean getFailed(){
-        return failed;
-    } 
 }

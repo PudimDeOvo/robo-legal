@@ -40,8 +40,9 @@ public class MainObstacle {
         while(true){
             if (scanner.hasNextInt()){
                 chosenColor2 = scanner.nextInt();
-
-                if (chosenColor2>=1 && chosenColor2 <= colors.length){
+                if (chosenColor2 == chosenColor1 + 1){
+                    System.out.println("You already chose this color. Please, pick another one.");
+                } else if (chosenColor2>=1 && chosenColor2 <= colors.length){
                     chosenColor2 -= 1;
                     System.out.println("color " + (chosenColor2+1) + ": " + colors[chosenColor2]);
                     break;
@@ -65,11 +66,11 @@ public class MainObstacle {
             System.out.println("Choose the food's coordinates. Choose x:");
             if (scanner.hasNextInt()){
                 foodX = scanner.nextInt();
-                if (foodX>=0 && foodX <= 4){
+                if (foodX>=0 && foodX <= 3){
                     System.out.println("Now, choose y:");
                     if (scanner.hasNextInt()){
                         foodY = scanner.nextInt();
-                        if (foodY>= 0 && foodY <= 4){
+                        if (foodY>= 0 && foodY <= 3){
                             done = true;
                         } else {
                             System.out.println("Choose a number between 0 and 3 for y!");
@@ -186,6 +187,8 @@ public class MainObstacle {
         int invalidMoves = 0;
         int invalidMoves2 = 0;
 
+        grid.printPosition(0, 0, dumbRobot.getColor());
+
         while (!dumbRobot.foundFood(food) && !dumbRobot.wasExploded(bomb)){
             int oldX = dumbRobot.getX();
             int oldY = dumbRobot.getY();
@@ -194,11 +197,11 @@ public class MainObstacle {
                 System.out.println("Dumb robot: ");
                 dumbRobot.move(randomMove);
                 validMoves++;
-                SleepUtil.sleepMs(2500);
+                SleepUtil.sleepMs(2600);
 
             } catch (InvalidMovementException e) {
                 invalidMoves++;
-                System.out.println(dumbRobot.getColor() + " Dumb robot " + e.getMessage());
+                System.out.println(grid.colorOfRobot(colorOne, dumbRobot.getColor()) + " Dumb robot " + e.getMessage());
             }
 
             for (Obstacle obs : obstacles){
@@ -206,14 +209,16 @@ public class MainObstacle {
                     obs.bump(dumbRobot);
                     if (dumbRobot.wasExploded(bomb)){
                         System.out.println("Dumb robot exploded!");
-                        return;
+                        break;
                     } else {
                         try{
                             dumbRobot.setX(oldX);
                             dumbRobot.setY(oldY);
                             System.out.println("Went back to (" + dumbRobot.getX() + ", " + dumbRobot.getY() + ").");
+                            grid.printPosition(dumbRobot.getX(), dumbRobot.getY(), dumbRobot.getColor());
+                            SleepUtil.sleepMs(2600);
                         } catch (InvalidMovementException e){
-                            System.out.println("Going back.");
+                            invalidMoves++;
                         }
                         
                     }
@@ -222,11 +227,14 @@ public class MainObstacle {
 
             if (dumbRobot.foundFood(food)){
                 if (dumbRobot.foundFood(food)){
-                    System.out.println(dumbRobot.getColor() + " Dumb robot found food!");
+                    System.out.println(grid.colorOfRobot(colorOne, dumbRobot.getColor()) + " Dumb robot found food!");
                 }
                 break;
             }
         }
+
+        System.err.println("Smart robot: ");
+        grid.printPosition(0, 0, smartRobot.getColor());
 
         while(!smartRobot.foundFood(food) && !smartRobot.wasExploded(bomb)){
             int oldX = smartRobot.getX();
@@ -236,12 +244,9 @@ public class MainObstacle {
                 smartRobot.move(0); // ignora o inteiro, serve só pra inicializar
                 validMoves2++;
                 SleepUtil.sleepMs(2600);
-                if (smartRobot.getFailed()){
-                    invalidMoves2++;
-                }
             } catch (InvalidMovementException e) {
                 invalidMoves2++;
-                System.out.println(smartRobot.getColor() + " Smart robot " + e.getMessage());
+                System.out.println(grid.colorOfRobot(colorTwo, smartRobot.getColor()) + " Smart robot " + e.getMessage());
             }
 
             for (Obstacle obs : obstacles){
@@ -249,16 +254,18 @@ public class MainObstacle {
                     obs.bump(smartRobot);
                     if (smartRobot.wasExploded(bomb)){
                         System.out.println("Smart robot exploded!");
-                        return;
+                        break;
                     } else {
                         try{
+                            SleepUtil.sleepMs(2600);
                             smartRobot.setX(oldX);
                             smartRobot.setY(oldY);
                             invalidMoves2++;
                             System.out.println("Went back to (" + smartRobot.getX() + ", " + smartRobot.getY() + ").");
-                        } catch (InvalidMovementException e){
-                            System.out.println("Going back.");
+                            grid.printPosition(smartRobot.getX(), smartRobot.getY(), smartRobot.getColor());
                             invalidMoves2++;
+                        } catch (InvalidMovementException e){
+                            System.out.println("bateu "); // debug
                         }
                         
                     }
@@ -267,7 +274,7 @@ public class MainObstacle {
 
             if (smartRobot.foundFood(food)){
                 if (smartRobot.foundFood(food)){
-                    System.out.println(smartRobot.getColor() + " Smart robot found food!");
+                    System.out.println(grid.colorOfRobot(colorTwo, smartRobot.getColor()) + " Smart robot found food!");
                 }
                 break;
             }
